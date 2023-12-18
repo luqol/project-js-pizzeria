@@ -62,12 +62,10 @@ const select = {
         new Product(productData, thisApp.data.products[productData]);
        }
     },
-
     initData: function(){
       const thisApp = this;
       thisApp.data = dataSource;
     },
-
     init: function(){
       const thisApp = this;
       console.log('*** App starting ***');
@@ -89,6 +87,7 @@ const select = {
       thisProduct.data = data;
       
       thisProduct.renderIdMenu();
+      thisProduct.initAccordion();
 
       console.log('new Product:', thisProduct);
     }
@@ -103,6 +102,25 @@ const select = {
       const menuContainer = document.querySelector(select.containerOf.menu);
       /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
+    }
+    initAccordion(){
+      const thisProduct = this;
+      /* find the clickable trigger (the element that should react to clicking) */
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      /* START: add event listener to clickable trigger on event click */
+      clickableTrigger.addEventListener('click', function(event) {
+        /* prevent default action for event */
+        event.preventDefault();
+        /* find active product (product that has active class) */
+        const activeProduct = document.querySelector(select.all.menuProductsActive);
+        console.log(activeProduct);
+        /* if there is active product and it's not thisProduct.element, remove class active from it */
+        if(activeProduct != null && activeProduct != thisProduct.element){
+          activeProduct.classList.toggle(classNames.menuProduct.wrapperActive);
+        }
+        /* toggle active class on thisProduct.element */
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
+      });
     }
   }
 
