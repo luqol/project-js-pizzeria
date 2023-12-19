@@ -92,7 +92,7 @@ const select = {
       thisProduct.initOrderFrom();
       thisProduct.processOrder();
 
-      //console.log('new Product:', thisProduct);
+      console.log('new Product:', thisProduct);
     }
     renderIdMenu(){
       const thisProduct = this;
@@ -113,7 +113,8 @@ const select = {
       thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
-      thisProduct.priceElem = thisProduct.form.querySelector(select.menuProduct.priceElem)
+      thisProduct.priceElem = thisProduct.form.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
 
     }
     initAccordion(){
@@ -136,7 +137,7 @@ const select = {
     }
     initOrderFrom(){
       const thisProduct = this;
-      console.log(thisProduct.initOrderFrom.name);
+      //console.log(thisProduct.initOrderFrom.name);
 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
@@ -157,10 +158,10 @@ const select = {
     }
     processOrder(){
       const thisProduct = this;
-      console.log(thisProduct.processOrder.name);
+      //console.log(thisProduct.processOrder.name);
       // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData: ',formData);
+      //console.log('formData: ',formData);
       // set price to default price
       let price = thisProduct.data.price;
 
@@ -173,15 +174,30 @@ const select = {
         for(let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
+          //find img of option 
+          const optImg = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          
           //console.log(optionId, option);
+          //option is checked
           if(formData[paramId].includes(optionId)){
+            //increase price
             if ( option.default != true){
               price+= option.price; 
             } 
-          } else {
+            // add img of option
+            if(optImg){
+              optImg.classList.add(classNames.menuProduct.imageVisible);
+            }
+            
+          } else { //option is not checked
+            //decrease price
             if ( option.default == true){
               price-= option.price; 
             } 
+            // remove img of option
+            if(optImg){
+              optImg.classList.remove(classNames.menuProduct.imageVisible);
+            }
           }
         }
       }
