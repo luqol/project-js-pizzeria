@@ -161,6 +161,14 @@
       });
       
     }
+    initAmountWidget(){
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
+        thisProduct.processOrder();
+      });
+    }
     processOrder(){
       const thisProduct = this;
       //console.log(thisProduct.processOrder.name);
@@ -211,14 +219,7 @@
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
-    initAmountWidget(){
-      const thisProduct = this;
 
-      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
-      thisProduct.amountWidgetElem.addEventListener('updated', function(){
-        thisProduct.processOrder();
-      });
-    }
   }
 
   class AmountWidget {
@@ -226,11 +227,11 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
-       if (thisWidget.input.value){
+      if (thisWidget.input.value){
         thisWidget.setValue(thisWidget.input.value);
-      } else
+      }else
       {
-        thisWidget.input.value = settings.amountWidget.defaultValue;
+        thisWidget.setValue(settings.amountWidget.defaultValue);
       }
       
       thisWidget.initAction();
