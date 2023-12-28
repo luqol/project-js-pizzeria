@@ -179,7 +179,7 @@ const select = {
           
           //console.log(optionId, option);
           //option is checked
-          if(formData[paramId].includes(optionId)){
+          if(formData[paramId] && formData[paramId].includes(optionId)){
             //increase price
             if ( option.default != true){
               price+= option.price; 
