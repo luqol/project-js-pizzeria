@@ -227,12 +227,15 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
+
+      thisWidget.setValue(thisWidget.input.value || settings.amountWidget.defaultValue);
+      /*
       if (thisWidget.input.value){
         thisWidget.setValue(thisWidget.input.value);
       }else
       {
         thisWidget.setValue(settings.amountWidget.defaultValue);
-      }
+      } */
       
       thisWidget.initAction();
 
@@ -285,8 +288,11 @@
       const event = new Event('updated');
       thisWidget.element.dispatchEvent(event);
     }
-
   }
+
+  //class Cart{
+    
+  //}
 
   const app = {
     initMenu: function(){
