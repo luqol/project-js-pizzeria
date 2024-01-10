@@ -1,6 +1,6 @@
-import {settings, select, classNames, templates} from './settings.js';
-import cartProduct from './components/CartProduct';
-import utils from './utils.js'
+import {settings, select, classNames, templates} from '../settings.js';
+import cartProduct from './CartProduct.js';
+import {utils} from '../utils.js'
 
 class Cart{
     constructor (element){
@@ -74,6 +74,7 @@ class Cart{
       const deliveryFree = settings.cart.defaultDeliveryFee;
       thisCart.totalNumber = 0;
       thisCart.subtotalPrice = 0;
+      
 
       for (let product of thisCart.products){
         thisCart.totalNumber++;
