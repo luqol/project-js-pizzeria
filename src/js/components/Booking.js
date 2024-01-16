@@ -220,6 +220,7 @@ class Booking {
     choosedTable(event){
         const thisBooking = this;
         thisBooking.table = 0;
+        thisBooking.dom.floor.classList.remove(classNames.booking.msgTable);
 
         if(event.target.classList.contains(classNames.tables.table) && !event.target.classList.contains(classNames.booking.tableBooked)){
             //console.log('table nr: ', event.target.getAttribute('data-table'));
@@ -240,6 +241,7 @@ class Booking {
 
         } else if(event.target.classList.contains(classNames.tables.table) && event.target.classList.contains(classNames.booking.tableBooked)) {
             console.log('table nr: ', event.target.getAttribute(settings.booking.tableIdAttribute), ' jest zajety');
+            thisBooking.dom.floor.classList.add(classNames.booking.msgTable);
         }
         //console.log('aktywny stolikl', thisBooking.table);
     }
@@ -247,6 +249,7 @@ class Booking {
     clearTables(){
         const thisBooking = this;
         thisBooking.table = 0;
+        thisBooking.dom.floor.classList.remove(classNames.booking.msgTable);
         for (let table of thisBooking.dom.tables){
             if (table.classList.contains(classNames.tables.active)){
             table.classList.remove(classNames.tables.active);            
