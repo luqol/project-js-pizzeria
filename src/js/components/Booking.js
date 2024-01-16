@@ -73,7 +73,7 @@ class Booking {
           });
 
     }
-
+ 
     parseData(bookings, eventsCurrent, eventsRepeat){
         const thisBooking = this;
 
@@ -97,8 +97,9 @@ class Booking {
                 
             }
         }
-        console.log(thisBooking.booked);
+        //console.log(thisBooking.booked);
         thisBooking.updateDOM();
+        thisBooking.clearTables();
     }
 
     makeBooked(date, hour, duration, table){
@@ -171,6 +172,8 @@ class Booking {
         thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
         thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
         thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+        thisBooking.dom.floor = thisBooking.dom.wrapper.querySelector(select.booking.floor);
+
     }
 
     initWidgets(){
@@ -203,10 +206,53 @@ class Booking {
 
         thisBooking.dom.wrapper.addEventListener('updated',function(){
           thisBooking.updateDOM();
+          thisBooking.clearTables();
+        });
+
+        thisBooking.dom.floor.addEventListener('click', function(event){
+            event.preventDefault();
+
+            thisBooking.choosedTable(event);
         });
 
     }
 
+    choosedTable(event){
+        const thisBooking = this;
+        thisBooking.table = 0;
+
+        if(event.target.classList.contains(classNames.tables.table) && !event.target.classList.contains(classNames.booking.tableBooked)){
+            //console.log('table nr: ', event.target.getAttribute('data-table'));
+            for (let table of thisBooking.dom.tables){
+                if(table.getAttribute(settings.booking.tableIdAttribute) == event.target.getAttribute(settings.booking.tableIdAttribute)){
+                    table.classList.toggle(classNames.tables.active);
+                    if (event.target.classList.contains(classNames.tables.active)){
+                        thisBooking.table = parseInt(event.target.getAttribute(settings.booking.tableIdAttribute)) ;
+                    } else {
+                        thisBooking.table = 0 ;
+                    }
+                } else if (table.getAttribute(settings.booking.tableIdAttribute) !== event.target.getAttribute(settings.booking.tableIdAttribute) 
+                            && table.classList.contains(classNames.tables.active)){
+                    table.classList.remove(classNames.tables.active);            
+                }
+            }
+
+
+        } else if(event.target.classList.contains(classNames.tables.table) && event.target.classList.contains(classNames.booking.tableBooked)) {
+            console.log('table nr: ', event.target.getAttribute(settings.booking.tableIdAttribute), ' jest zajety');
+        }
+        //console.log('aktywny stolikl', thisBooking.table);
+    }
+
+    clearTables(){
+        const thisBooking = this;
+        thisBooking.table = 0;
+        for (let table of thisBooking.dom.tables){
+            if (table.classList.contains(classNames.tables.active)){
+            table.classList.remove(classNames.tables.active);            
+            }
+        }
+    }
 }
 
 export default Booking;
