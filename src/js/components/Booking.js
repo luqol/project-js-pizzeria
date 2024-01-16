@@ -173,6 +173,16 @@ class Booking {
         thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
         thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
         thisBooking.dom.floor = thisBooking.dom.wrapper.querySelector(select.booking.floor);
+        thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.from);
+
+        thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
+        thisBooking.dom.adress = thisBooking.dom.wrapper.querySelector(select.booking.address);
+        thisBooking.dom.duration = thisBooking.dom.wrapper.querySelector(select.booking.duration);
+        thisBooking.dom.ppl = thisBooking.dom.wrapper.querySelector(select.booking.ppl);
+
+        thisBooking.dom.water = thisBooking.dom.wrapper.querySelector(select.booking.water);
+        thisBooking.dom.bread = thisBooking.dom.wrapper.querySelector(select.booking.bread);
+
 
     }
 
@@ -214,12 +224,17 @@ class Booking {
 
             thisBooking.choosedTable(event);
         });
+        
+        thisBooking.dom.form.addEventListener('submit',function(event){
+            event.preventDefault();
+            thisBooking.sendBooking();
+          });
 
     }
 
     choosedTable(event){
         const thisBooking = this;
-        thisBooking.table = 0;
+        thisBooking.table = null;
         thisBooking.dom.floor.classList.remove(classNames.booking.msgTable);
 
         if(event.target.classList.contains(classNames.tables.table) && !event.target.classList.contains(classNames.booking.tableBooked)){
@@ -230,7 +245,7 @@ class Booking {
                     if (event.target.classList.contains(classNames.tables.active)){
                         thisBooking.table = parseInt(event.target.getAttribute(settings.booking.tableIdAttribute)) ;
                     } else {
-                        thisBooking.table = 0 ;
+                        thisBooking.table = null ;
                     }
                 } else if (table.getAttribute(settings.booking.tableIdAttribute) !== event.target.getAttribute(settings.booking.tableIdAttribute) 
                             && table.classList.contains(classNames.tables.active)){
@@ -248,13 +263,57 @@ class Booking {
 
     clearTables(){
         const thisBooking = this;
-        thisBooking.table = 0;
+        thisBooking.table = null;
         thisBooking.dom.floor.classList.remove(classNames.booking.msgTable);
         for (let table of thisBooking.dom.tables){
             if (table.classList.contains(classNames.tables.active)){
             table.classList.remove(classNames.tables.active);            
             }
         }
+    }
+
+    sendBooking(){
+        const thisBooking = this;
+        const url = settings.db.url + '/' + settings.db.bookings;
+        
+        const reservation = {
+            date: thisBooking.datePicker.value,
+            hour: thisBooking.hourPicker.value,
+            table: thisBooking.table,
+            duration: parseInt(thisBooking.dom.duration.value),
+            ppl: parseInt(thisBooking.dom.ppl.value),
+            starters: [],
+            phone: thisBooking.dom.phone.value,
+            adress: thisBooking.dom.adress.value,
+        }
+
+        if(thisBooking.dom.water.checked){
+            reservation.starters.push(thisBooking.dom.water.value)
+        }
+        if(thisBooking.dom.bread.checked){
+            reservation.starters.push(thisBooking.dom.bread.value)
+        }
+        
+        //console.log(reservation);
+
+        const option = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reservation),
+        };
+
+        fetch(url, option)
+        .then(function(response){
+            return response.json();
+        }).then(function(parsedResponse){
+            console.log('parsedResponse: ', parsedResponse);
+            thisBooking.makeBooked(reservation.date, reservation.hour, reservation.duration, reservation.table);
+            thisBooking.updateDOM();
+            thisBooking.clearTables();
+        })
+
     }
 }
 
