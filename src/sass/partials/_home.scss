@@ -1,0 +1,144 @@
+/* general */
+
+.home-widget {
+    transform: opacity 500ms;
+  
+    &.loading {
+      opacity: 0.25;
+    }
+}
+  
+.home-wrapper {
+    margin: ($base-size * 3.5) auto;
+    padding: ($base-size * 6) ($base-size * 4);
+    background: $color-light;
+    border-bottom: 1px solid lighten($color-dark, 70%);
+    border-radius: $radius;
+}
+
+div .row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    color: $color-light;
+}
+
+div .g-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: $color-light;
+}
+
+section{
+    margin-bottom: 50px;;
+}
+
+
+/* intro */
+
+.box{
+    flex: 40%;
+    position: relative;
+    border-radius: $radius;
+    height: 110px;
+    .subtitle{
+        z-index: 2;
+        position: relative;
+        }
+    .up-text{
+        margin-top: 34px;
+
+        &:hover{
+            margin-top: 10px;
+            transition: $transition;
+            z-index: 2;
+            position: relative;
+        }
+    }
+}
+
+.long-box{
+    flex: 100%;
+    height: 110px;
+    background-color: $color-main;
+    border-radius: $radius;
+    .subtitle-Long{
+        margin-bottom: 0px;
+        margin-top: 22px;
+    }
+    p{
+        margin-top: 0px;;
+    }
+}
+
+.box-img{
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: $radius;
+    }
+}
+  
+/* gallery */
+
+.g-box{
+    flex:28%;
+    position: relative;
+    border-radius: $radius;
+    height: 198px;
+    .g-ico{
+        .fas{
+            margin-top: 94px;
+            font-size: ($base-size*2);
+        }
+    }
+}
+
+.g-box-img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: $radius;
+        }
+    &:hover{
+        &::after{
+            background: $color-dark;
+            content: '';
+            opacity: 0.3;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    }
+    
+    
+}
+
+.inst-link{
+    display: inline-block;
+    color: $color-main;
+    margin-top: 30px;
+}
