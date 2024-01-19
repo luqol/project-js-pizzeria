@@ -1,4 +1,4 @@
-
+/*global Flickity*/
 
 class Carousel{
     constructor(wrapper){
