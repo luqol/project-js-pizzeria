@@ -80,6 +80,7 @@ export const select = {
     home:{
       orderOnline: '.orderOnline',
       bookATable: '.bookATable',
+      carousel: '.main-carousel',
     },
     pageID:{
       home: 'home',

@@ -1,4 +1,5 @@
 import {templates, select, classNames} from '../settings.js';
+import Carousel from './Carousel.js';
 
 class Home{
     constructor(element){
@@ -6,6 +7,14 @@ class Home{
 
         thisHome.render(element);
         thisHome.initAction();
+        thisHome.initCarousel();
+    }
+
+    initCarousel(){
+        const thisHome = this;
+
+        thisHome.carousel = new Carousel(thisHome.dom.carousel);
+
     }
 
     render(element){
@@ -22,6 +31,7 @@ class Home{
         thisHome.dom.orderOnline = thisHome.dom.wrapper.querySelector(select.home.orderOnline);
         thisHome.dom.bookATable = thisHome.dom.wrapper.querySelector(select.home.bookATable);
 
+        thisHome.dom.carousel = thisHome.dom.wrapper.querySelector(select.home.carousel);
 
     }
     initAction(){
@@ -57,7 +67,6 @@ class Home{
           }
           window.location.hash = '#/' + pageId;
     }
-
 }
 
 export default Home;

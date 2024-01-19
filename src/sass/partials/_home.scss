@@ -37,7 +37,7 @@ div .g-row{
 }
 
 section{
-    margin-bottom: 50px;;
+    margin-bottom: 50px;
 }
 
 
@@ -74,7 +74,7 @@ section{
         margin-top: 22px;
     }
     p{
-        margin-top: 0px;;
+        margin-top: 0px;
     }
 }
 
@@ -93,27 +93,54 @@ section{
     }
 }
   
+/* carousel */
+
+.carousel-body{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    
+    .carousel-img{
+        flex: 25%;
+        width: auto;
+        height: 169px;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: $radius;
+        }
+    }
+    .carousel-txt{
+        flex: 65%;
+        text-align: left;
+    }
+}
+
+
+
+
 /* gallery */
 
 .g-box{
-    flex:28%;
-    position: relative;
+    flex: 28%;
     border-radius: $radius;
     height: 198px;
     .g-ico{
         .fas{
             margin-top: 94px;
-            font-size: ($base-size*2);
+            font-size: ($base-size * 2);
         }
     }
 }
 
 .g-box-img{
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
-    left: 0;
-    top: 0;
     img{
         width: 100%;
         height: 100%;

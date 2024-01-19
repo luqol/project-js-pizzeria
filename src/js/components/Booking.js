@@ -183,7 +183,6 @@ class Booking {
         thisBooking.dom.water = thisBooking.dom.wrapper.querySelector(select.booking.water);
         thisBooking.dom.bread = thisBooking.dom.wrapper.querySelector(select.booking.bread);
 
-
     }
 
     initWidgets(){
