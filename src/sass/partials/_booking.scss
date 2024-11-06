@@ -213,6 +213,12 @@
     margin: ($base-size * 4) auto;
   }
 
+  .order-confirmation{
+    button{
+      cursor: pointer;
+    }
+  }
+
   .msgTable {
     &::after {
       position: absolute;
